@@ -14,7 +14,7 @@ It provides powerful visualizations for logs, alerts, and error trends across di
 - REST API integration with the Spring Boot backend  
 
 ### **Backend**
-- ☕ **Spring Boot (Java)**
+- **Spring Boot (Java)**
 - RESTful APIs for log ingestion, search, and alert evaluation  
 - Kafka producer for event streaming  
 - Integrated with Redis and Elasticsearch  
