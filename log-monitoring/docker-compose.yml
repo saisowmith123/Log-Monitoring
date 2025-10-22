@@ -1,0 +1,38 @@
+version: "3.9"
+services:
+  redpanda:
+    image: docker.redpanda.com/redpandadata/redpanda:v24.1.9
+    platform: linux/arm64
+    container_name: redpanda
+    command: ["redpanda","start","--overprovisioned","--smp","1","--memory","1G","--reserve-memory","0M","--check=false"]
+    ports: ["9092:9092"]
+
+  redis:
+    image: redis:7.2
+    platform: linux/arm64
+    container_name: redis
+    ports: ["6379:6379"]
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.15.0
+    platform: linux/arm64
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - ES_JAVA_OPTS=-Xms2g -Xmx2g
+    ports: ["9200:9200","9300:9300"]
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.15.0
+    platform: linux/arm64
+    container_name: kibana
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    depends_on: [elasticsearch]
+    ports: ["5601:5601"]
+
+
+networks:
+  default:
+    name: lognet
