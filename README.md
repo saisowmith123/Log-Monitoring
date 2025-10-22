@@ -29,7 +29,7 @@ It provides powerful visualizations for logs, alerts, and error trends across di
 ## System Description
 
 BlakBox continuously ingests logs that are published to Kafka, indexed into Elasticsearch, and cached in Redis.  
-These logs are then visualized on a modern, dark-mode dashboard that highlights real-time application health.
+These logs are then visualized on dashboard that highlights real-time application health.
 
 > **Note:**  
 > While the architecture is designed for a microservices ecosystem, the current setup uses **Python scripts to generate synthetic logs** for services.  
