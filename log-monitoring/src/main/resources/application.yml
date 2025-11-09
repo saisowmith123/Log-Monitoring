@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8081
 
 spring:
   application:
@@ -23,19 +23,9 @@ spring:
     # if you enable security later:
     # username: elastic
     # password: changeme
-  jackson:
-    serialization:
-      write-dates-as-timestamps: false
-    time-zone: UTC
-
 
 management:
   endpoints:
     web:
       exposure:
         include: health,info,metrics
-app:
-  pipeline:
-    mode: streaming
-
-

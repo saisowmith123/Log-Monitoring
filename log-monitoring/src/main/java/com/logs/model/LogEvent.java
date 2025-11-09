@@ -1,6 +1,5 @@
 package com.logs.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.logs.enums.LogLevel;
 import com.logs.enums.Environment;
 import lombok.*;
@@ -9,10 +8,6 @@ import org.springframework.data.elasticsearch.annotations.DateFormat;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
 
 import javax.xml.stream.events.EndDocument;
 import java.time.Instant;
@@ -51,8 +46,7 @@ public class LogEvent {
     private String stack;
 
     @Field(type = FieldType.Date, format = DateFormat.date_optional_time)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "UTC")
-    private LocalDateTime timestamp;
+    private Instant timestamp;
 
 }
 

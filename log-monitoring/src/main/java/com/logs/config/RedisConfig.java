@@ -1,6 +1,8 @@
 package com.logs.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,23 +29,24 @@ public class RedisConfig {
     }
 
     @Bean
-    public RedisTemplate<String, Object> redisTemplate(
-            LettuceConnectionFactory cf,
-            ObjectMapper objectMapper
-    ) {
+    public RedisTemplate<String, Object> redisTemplate(LettuceConnectionFactory cf,
+                                                       ObjectMapper springObjectMapper) {
         RedisTemplate<String, Object> tpl = new RedisTemplate<>();
         tpl.setConnectionFactory(cf);
 
-        // Keys
-        StringRedisSerializer keySer = StringRedisSerializer.UTF_8;
-        tpl.setKeySerializer(keySer);
-        tpl.setHashKeySerializer(keySer);
+        tpl.setKeySerializer(new StringRedisSerializer());
+        tpl.setHashKeySerializer(new StringRedisSerializer());
 
-        // Values (JSON with Boot's ObjectMapper)
-        GenericJackson2JsonRedisSerializer valSer =
-                new GenericJackson2JsonRedisSerializer(objectMapper);
-        tpl.setValueSerializer(valSer);
-        tpl.setHashValueSerializer(valSer);
+        // Start from Spring’s mapper (already has JavaTimeModule), then ensure ISO8601 strings (not timestamps)
+        ObjectMapper mapper = springObjectMapper.copy()
+                .registerModule(new JavaTimeModule())
+                .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
+        // IMPORTANT: Avoid broad default typing; GenericJackson2JsonRedisSerializer handles type info
+        GenericJackson2JsonRedisSerializer json = new GenericJackson2JsonRedisSerializer(mapper);
+
+        tpl.setValueSerializer(json);
+        tpl.setHashValueSerializer(json);
 
         tpl.afterPropertiesSet();
         return tpl;

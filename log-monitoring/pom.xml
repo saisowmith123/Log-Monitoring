@@ -31,12 +31,6 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.fasterxml.jackson.datatype</groupId>
-            <artifactId>jackson-datatype-jsr310</artifactId>
-        </dependency>
-
-
         <!-- Kafka & Redis (no versions; Boot manages them) -->
         <dependency>
             <groupId>org.springframework.kafka</groupId>

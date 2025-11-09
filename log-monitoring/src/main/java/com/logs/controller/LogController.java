@@ -1,16 +1,19 @@
 package com.logs.controller;
 
 import com.logs.dto.LogRequest;
-import com.logs.model.ApiResponse;
+import com.logs.dto.LogSearchRequest;
 import com.logs.model.LogEvent;
 import com.logs.service.LogService;
+import com.logs.model.ApiResponse;
 import com.logs.util.ErrorUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 
 @Slf4j
 @RestController
@@ -30,7 +33,6 @@ public class LogController {
             return ResponseEntity.ok(ApiResponse.ok("Log processed successfully"));
         } catch (Exception e) {
             log.error("Error while processing log: {}", e.getMessage());
-            System.out.println(e.getMessage());
             return ErrorUtils.handleException(e);
         }
     }
@@ -52,13 +54,13 @@ public class LogController {
     /**
      * Fetch all logs (from Elasticsearch)
      */
-    @GetMapping("/all")
-    public ResponseEntity<ApiResponse<Iterable<LogEvent>>> getAllLogs() {
+    @PostMapping("/search")
+    public ResponseEntity<ApiResponse<Page<LogEvent>>> search(@RequestBody LogSearchRequest req) {
         try {
-            Iterable<LogEvent> logs = logService.getAllLogs();
-            return ResponseEntity.ok(ApiResponse.ok(logs));
+            Page<LogEvent> results = logService.searchLogs(req);
+            return ResponseEntity.ok(ApiResponse.ok(results));
         } catch (Exception e) {
-            log.error("Error fetching all logs: {}", e.getMessage());
+            log.error("Error searching logs: {}", e.getMessage(), e);
             return ErrorUtils.handleException(e);
         }
     }

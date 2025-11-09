@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.*;
-import org.springframework.kafka.support.serializer.JsonSerializer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,6 +35,7 @@ public class KafkaConfig {
         return new KafkaTemplate<>(producerFactory());
     }
 
+    // ---- Consumer ----
     @Bean
     public ConsumerFactory<String, String> consumerFactory(
             @Value("${spring.kafka.consumer.group-id:log-monitoring}") String groupId) {
@@ -54,7 +54,7 @@ public class KafkaConfig {
         ConcurrentKafkaListenerContainerFactory<String, String> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory);
-        factory.setConcurrency(3);
+        factory.setConcurrency(3); // adjust later
         return factory;
     }
 }

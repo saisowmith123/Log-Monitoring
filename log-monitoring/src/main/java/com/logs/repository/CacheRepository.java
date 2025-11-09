@@ -17,7 +17,7 @@ public class CacheRepository {
 
     public void saveRecentLogs(List<LogEvent> logs) {
         ValueOperations<String, Object> ops = redisTemplate.opsForValue();
-        ops.set(RECENT_LOGS_KEY, logs, 5, TimeUnit.MINUTES);
+        ops.set(RECENT_LOGS_KEY, logs, 5, TimeUnit.MINUTES); // auto-expire after 5 min
     }
 
     @SuppressWarnings("unchecked")
@@ -26,16 +26,6 @@ public class CacheRepository {
         Object cached = ops.get(RECENT_LOGS_KEY);
         return cached != null ? (List<LogEvent>) cached : null;
     }
-
-    public void pushRecent(LogEvent event, int maxSizeSecondsTtl) {
-        var ops = redisTemplate.opsForList();
-
-        ops.leftPush(RECENT_LOGS_KEY, event);
-        ops.trim(RECENT_LOGS_KEY, 0, maxSizeSecondsTtl - 1);
-
-        redisTemplate.expire(RECENT_LOGS_KEY, java.time.Duration.ofMinutes(5));
-    }
-
 
     public void clearCache() {
         redisTemplate.delete(RECENT_LOGS_KEY);

@@ -42,7 +42,7 @@ export function TrendOverTime({ data }: { data: TrendPoint[] }) {
     <Card variant="outlined" sx={{ height: 320 }}>
       <CardContent sx={{ height: "100%" }}>
         <Typography variant="h6" gutterBottom>
-          Trend Over Time
+          Error Trend Over Time
         </Typography>
         <ResponsiveContainer width="100%" height="85%">
           <LineChart
