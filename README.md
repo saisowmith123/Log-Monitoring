@@ -17,7 +17,8 @@ It provides powerful visualizations for logs, alerts, and error trends across di
 - **Spring Boot (Java)**
 - RESTful APIs for log ingestion, search, and alert evaluation  
 - Kafka producer for event streaming  
-- Integrated with Redis and Elasticsearch  
+- Integrated with Redis and Elasticsearch
+- Wrote JUnit 5 unit tests for controller and service layers using Mockito
 
 ### **Data & Messaging**
 - **Apache Kafka** → Message broker for log events (`log-events` topic)  
