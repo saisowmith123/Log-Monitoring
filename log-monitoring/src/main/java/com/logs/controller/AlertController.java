@@ -18,6 +18,8 @@ public class AlertController {
 
     private final AlertService alertService;
 
+
+
     @GetMapping("/active")
     public List<Alert> getActive() {
         return alertService.getActiveAlerts();
