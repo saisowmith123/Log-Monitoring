@@ -1,7 +1,7 @@
 # BlakBox - Real-Time Log Monitoring & Alerting System
 
 A full-stack **real-time log monitoring dashboard** built with **React.js**, **Spring Boot**, **Kafka**, **Elasticsearch**, and **Redis**.  
-It provides powerful visualizations for logs, alerts, and error trends across distributed systems — simulating real-world microservice behavior.
+It provides powerful visualizations for logs, alerts, and error trends across distributed systems, simulating real-world microservice behavior.
 
 ---
 
@@ -21,9 +21,9 @@ It provides powerful visualizations for logs, alerts, and error trends across di
 - Wrote JUnit 5 unit tests for controller and service layers using Mockito
 
 ### **Data & Messaging**
-- **Apache Kafka** → Message broker for log events (`log-events` topic)  
-- **Elasticsearch** → Stores and indexes all logs for search and analytics  
-- **Redis** → Caches recent logs for fast dashboard rendering  
+- **Apache Kafka** -> Message broker for log events (`log-events` topic)  
+- **Elasticsearch** -> Stores and indexes all logs for search and analytics  
+- **Redis** -> Caches recent logs for fast dashboard rendering  
 
 ---
 
