@@ -1,4 +1,4 @@
-# BlakBox — Real-Time Log Monitoring & Alerting System
+# BlakBox - Real-Time Log Monitoring & Alerting System
 
 A full-stack **real-time log monitoring dashboard** built with **React.js**, **Spring Boot**, **Kafka**, **Elasticsearch**, and **Redis**.  
 It provides powerful visualizations for logs, alerts, and error trends across distributed systems — simulating real-world microservice behavior.
